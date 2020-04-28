@@ -1,6 +1,24 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 
 const Home = () => {
+       
+    const [msg,setMsg] = useState([])
+   
+    useEffect(()=>{
+        fetch(`http://localhost:8080`,{
+          method: 'GET',
+          headers: {'Content-Type': 'application/json'},
+         
+         }).then(res => res.json(res))
+         .then( data =>{
+          
+         console.log(data)
+         setMsg(msg=>data)
+         })
+      
+        
+      },[])
+
     return (
         <div>
         <div className='jumbotron'>
@@ -10,7 +28,7 @@ const Home = () => {
           <div>
               <input type='text' style={{width:'50vw',height:'70px',fontSize:'3vw'}} placeholder="Type the name of medicine"/>
           </div>
-         
+    <h1>{msg.message}</h1>
 
         </div>
     )
